@@ -1,0 +1,22 @@
+class Levy{
+    constructor(){
+        this.pos=createVector(200,200);
+        this.prev=this.pos.copy();
+    }
+    update(){
+            this.step=p5.Vector.random2D();
+            this.step.setMag(1);
+            if(random(100)<1){
+                this.step.mult(50);
+            }else{
+                this.step.mult(2);
+            }
+            this.prev.set(this.pos);
+            this.pos.add(this.step);
+    }
+    show(){
+        stroke(255);
+        strokeWeight(2);
+        line(this.prev.x,this.prev.y,this.pos.x,this.pos.y);
+    }
+}
