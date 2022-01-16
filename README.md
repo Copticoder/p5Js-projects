@@ -8,3 +8,5 @@ in this repo are my projects made with p5Js framework for fun.
 ![forces](https://github.com/Copticoder/p5Js-projects/blob/main/gifs/forces%20on%20balls.gif)
 ## Gravitational Force ## 
 ![gravity](https://github.com/Copticoder/p5Js-projects/blob/main/gifs/gravity.gif)
+## N-body Problem ## 
+![nbody](https://github.com/Copticoder/p5Js-projects/blob/main/gifs/Nbody.gif)
