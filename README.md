@@ -6,3 +6,5 @@ in this repo are my projects made with p5Js framework for fun.
 ![Levy](https://github.com/Copticoder/p5Js-projects/blob/main/gifs/levy.gif)
 ## Forces acting on balls (wind, gravity and friction..) ##
 ![forces](https://github.com/Copticoder/p5Js-projects/blob/main/gifs/forces%20on%20balls.gif)
+## Gravitational Force ## 
+![gravity](https://github.com/Copticoder/p5Js-projects/blob/main/gifs/gravity.gif)
