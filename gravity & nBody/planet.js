@@ -19,7 +19,7 @@ class Planet extends Attractor {
             let direction=p5.Vector.sub(planet.pos,this.pos);
             let magSq=direction.magSq();
             direction.normalize();
-            let g=5;
+            let g=10;
             let f= this.getForce(g,planet,magSq,direction);
             planet.applyForce(f);
         }
@@ -31,7 +31,7 @@ class Planet extends Attractor {
         f.mult(this.mass);
         f.mult(g);
         f.div(magSq);
-        f.limit(5);
+        f.limit(20);
         return f;
     }
     update(){
