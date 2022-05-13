@@ -11,19 +11,39 @@ class Cell {
     this.index=(this.j)+(this.i*rows);
     this.solCell=false;
     this.fCost=0;
+    this.start=false;
+    this.end=false;
   }
 
   showSquare() {
     this.isdiscoveredCell();
-    if(!this.solCell){
+    if(this.start){
+      this.isstart();
+    }
+    if(this.end){
+      this.isend();
+    }
+    if(!this.solCell&&this.start){
+      this.isstart();
+    }else if(!this.solCell&&!this.start){
       this.isvisitedCell();
     }else{
       this.issolCell();
     }
     this.drawWalls();
   }
-
-
+  isstart(){
+    noStroke();
+    fill(255,0,255);   
+    square(this.curx,this.cury,this.side);
+    
+  }
+  isend(){
+    noStroke();
+    fill(255,255,0);   
+    square(this.curx,this.cury,this.side);
+  
+  }
   issolCell(){
     noStroke();
     fill(255,0,0);   
@@ -34,7 +54,7 @@ class Cell {
 
   drawWalls(){
     stroke(255, 255, 255);
-    strokeWeight(0.5);
+    strokeWeight(1);
     //top : 0 , left : 1, bottom : 2 , right : 3
     if (this.walls[0]) {
       line(this.curx, this.cury, this.curx + this.side, this.cury);
@@ -55,12 +75,8 @@ class Cell {
 
       fill(0);
       square(this.curx, this.cury, this.side);
-    } else {
-      noStroke();
-      fill(0);
-      square(this.curx, this.cury, this.side);
-    }
-  }
+  
+  }}
   isvisitedCell(){
     if(this.visited){
       noStroke();
@@ -137,7 +153,6 @@ class Cell {
   }
   getFcost(starting,ending){
     this.fCost=(Math.abs(starting.i-this.i)+Math.abs(starting.j-this.j)) + (Math.abs(ending.i-this.i)+Math.abs(ending.j-this.j));
-    console.log(this.fCost);
   }
 
 }
