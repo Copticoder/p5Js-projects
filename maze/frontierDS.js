@@ -48,7 +48,7 @@ class PQMinHeap{
     add(cell){
         var i=this.heap.length-1;
         this.heap.push(cell);
-        
+        console.log(cell.fCost);
         
         while(i>1 && this.heap[i].fCost<this.heap[Math.floor(i/2)].fCost){
             this.swap(Math.floor(i/2),i);

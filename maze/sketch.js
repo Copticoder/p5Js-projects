@@ -17,7 +17,7 @@ function setup() {
   stackFrontier=new StackFrontier();
   queueFrontier=new QueueFrontier();
   pqFrontier= new PQMinHeap();
-  sqSide = 20;
+  sqSide =60;
   w = width;
   h = height;
   maze = [];
