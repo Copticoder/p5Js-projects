@@ -7,13 +7,17 @@ var stackFrontier;
 var drewMaze=false;
 var queueFrontier;
 var starting,ending,solved;
+var solutionList;
+solutionList=[];
+var sol;
 solved=false;
 function setup() {
-  frameRate(10);
+  // frameRate(10);
   createCanvas(600, 600);
   stackFrontier=new StackFrontier();
   queueFrontier=new QueueFrontier();
-  sqSide = 75;
+  pqFrontier= new PQMinHeap();
+  sqSide = 20;
   w = width;
   h = height;
   maze = [];
@@ -23,25 +27,44 @@ function setup() {
   for (var i = 0; i < rows; i++) {
     for (var j = 0; j < cols; j++) {
       maze.push(new Cell(i, j,sqSide));
+      solutionList.push(0);
     }
-
+    solutionList[0]=null;
   }
   current=maze[0];
   current.discovered=true;
   starting=maze[0];
   stackFrontier.add(starting);
   queueFrontier.add(starting);
-  ending=maze[maze.length-1];
-  
+  pqFrontier.add(starting);
+  ending=maze[rows-1];
+  sol=ending.index
+
 }
 var r;
 r=0;
 function draw() {
   background(0);
   drawMaze();
-  if(drewMaze){solveBFS();}
+  
+  if(drewMaze){solveAstar();}
+  
+  if(solved){drawSolution();}
     
 }
+function drawSolution(){
+
+
+  maze[sol].solCell=true;
+  if(maze[solutionList[sol]] != null){
+    
+    maze[solutionList[sol]].solCell=true;
+    sol=solutionList[sol];
+  
+  }
+
+}
+
 
 function solveDFS(){
   if(!solved)
@@ -50,39 +73,59 @@ function solveDFS(){
     var node = stackFrontier.remove();
     node.hunter();
     node.visited=true;
+    
     if(node==ending){
       solved=true;
     }
       var neighbors=node.dfsNeighbours();
       for(var counter=0;counter<neighbors.length;counter++){
         stackFrontier.add(neighbors[counter]);
-      }
-      print(stackFrontier);
+        solutionList[neighbors[counter].index]=node.index;
+      
+    }
   }}
 
+}
+
+
+function solveAstar(){
+  if(!solved){
+    if(!pqFrontier.empty()){
+      var node=pqFrontier.remove();
+      console.log(node.fCost);
+      node.hunter();
+      node.visited=true;
+      if(node == ending){
+        solved=true;
+      }
+      var neighbors=node.dfsNeighbours();
+      for(var counter=0;  counter<neighbors.length  ; counter++){
+        neighbors[counter].getFcost(starting,ending);
+        pqFrontier.add(neighbors[counter]);
+        solutionList[neighbors[counter].index]=node.index;
+
+      }
+    }
+  }
 }
 
 function solveBFS(){
   if(!solved){
     if(!queueFrontier.empty()){
       var node =queueFrontier.frontier[0];
-
-      print(node);
-      queueFrontier.remove();
+      queueFrontier.remove(); 
+      node.visited=true;
+  
       node.hunter();
-      if(!node.visited){
-      
-        node.visited=true;
-
+      if(node==ending){
+        solved=true;
       }
       var neighbors=node.dfsNeighbours();
-      for(var counter=0;counter<neighbors.length;counter++){
-        neighbors[counter].visited=true;
-        if(neighbors[counter]==ending){
-          solved=true;
-        }
-        queueFrontier.add(neighbors[counter]);
 
+      for(var counter=0;  counter<neighbors.length  ; counter++){
+        neighbors[counter].visited=true;
+        queueFrontier.add(neighbors[counter]);
+        solutionList[neighbors[counter].index]=node.index;
 
       }
 

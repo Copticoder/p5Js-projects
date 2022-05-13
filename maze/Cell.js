@@ -1,5 +1,4 @@
 class Cell {
-  
   constructor(i, j, side) {
     this.i = i;
     this.j = j;
@@ -9,11 +8,31 @@ class Cell {
     this.visited = false;
     this.curx = this.j * this.side;
     this.cury = this.i * this.side;
+    this.index=(this.j)+(this.i*rows);
+    this.solCell=false;
+    this.fCost=0;
   }
-  showSquare() {
 
+  showSquare() {
     this.isdiscoveredCell();
-    this.isvisitedCell();
+    if(!this.solCell){
+      this.isvisitedCell();
+    }else{
+      this.issolCell();
+    }
+    this.drawWalls();
+  }
+
+
+  issolCell(){
+    noStroke();
+    fill(255,0,0);   
+    square(this.curx,this.cury,this.side);
+  }
+
+
+
+  drawWalls(){
     stroke(255, 255, 255);
     strokeWeight(0.5);
     //top : 0 , left : 1, bottom : 2 , right : 3
@@ -116,4 +135,12 @@ class Cell {
     }
     return avlNeighbours;
   }
+  getFcost(starting,ending){
+    this.fCost=(Math.abs(starting.i-this.i)+Math.abs(starting.j-this.j)) + (Math.abs(ending.i-this.i)+Math.abs(ending.j-this.j));
+    console.log(this.fCost);
+  }
+
 }
+
+
+
