@@ -19,7 +19,7 @@ function setup() {
   restart();
 
 }
-
+// TEST GIT
 function restart(){
   r=0;
   drewMaze=false;
