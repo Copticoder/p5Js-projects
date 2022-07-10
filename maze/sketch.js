@@ -19,11 +19,7 @@ function setup() {
   restart();
 
 }
-// TEST GIT
-function test(){
-  console.log("TEST");
-  // testing git
-}
+
 function restart(){
   r=0;
   drewMaze=false;
